@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import { Ticket } from './tickets/tickets.model';
 
 /**
  * This service acts as a mock back-end.
@@ -10,13 +11,6 @@ import { delay, tap } from 'rxjs/operators';
 export type User = {
   id: number;
   name: string;
-};
-
-export type Ticket = {
-  id: number;
-  description: string;
-  assigneeId: number;
-  completed: boolean;
 };
 
 function randomDelay() {
@@ -44,10 +38,9 @@ export class BackendService {
 
   lastId = 1;
 
-  constructor() { }
+  constructor() {}
 
-  private findTicketById = id =>
-    this.storedTickets.find(ticket => ticket.id === +id);
+  private findTicketById = id => this.storedTickets.find(ticket => ticket.id === +id);
   private findUserById = id => this.storedUsers.find(user => user.id === +id);
 
   tickets() {
@@ -66,7 +59,7 @@ export class BackendService {
     return of(this.findUserById(id)).pipe(delay(randomDelay()));
   }
 
-  newTicket(payload: { description: string }) {
+  newTicket(payload: { description: string }): Observable<Ticket> {
     const newTicket: Ticket = {
       id: ++this.lastId,
       description: payload.description,
@@ -96,13 +89,13 @@ export class BackendService {
     return throwError(new Error('ticket or user not found'));
   }
 
-  complete(ticketId: number, completed: boolean) {
+  complete(ticketId: number, completed: boolean): Observable<Ticket> {
     const foundTicket = this.findTicketById(+ticketId);
     if (foundTicket) {
       return of(foundTicket).pipe(
         delay(randomDelay()),
         tap((ticket: Ticket) => {
-          ticket.completed = true;
+          ticket.completed = completed;
         })
       );
     }
