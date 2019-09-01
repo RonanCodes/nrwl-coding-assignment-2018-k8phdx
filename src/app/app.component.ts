@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {BackendService} from './backend.service';
+import { BackendService } from './backend.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import {BackendService} from './backend.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  tickets = this.backend.tickets();
+  // TODO: Move the users logic to a users store service.
   users = this.backend.users();
 
   constructor(private backend: BackendService) {}
