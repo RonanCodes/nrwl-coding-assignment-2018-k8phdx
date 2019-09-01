@@ -26,7 +26,6 @@ export class TicketsStoreService {
       .tickets()
       .pipe(take(1)) // Only do the HTTP Request once, this will help with race conditions.
       .subscribe(tickets => {
-        console.log({ tickets });
         this.setTickets([...tickets]);
       });
   }
