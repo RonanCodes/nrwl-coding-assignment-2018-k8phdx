@@ -1,0 +1,24 @@
+<!-- TODO: Add: Angular Material Component Library -->
+<h2>Ticket Detail</h2>
+<div *ngIf="ticket">
+  <h3>{{ ticket.description }}</h3>
+
+  <div><label>Id: </label>{{ ticket.id }}</div>
+
+  <div>
+    <label>Completed: </label>
+    <input
+      type="checkbox"
+      [checked]="ticket.completed"
+      (change)="this.ticketsStoreService.toggleCompletedStatus(ticket)"
+    />
+  </div>
+
+  <div>
+    <label>Assignee: </label>
+    {{ ticket.assigneeId }}
+    <!-- TODO: Show assignee name -->
+
+    <!-- TODO: User Dropdown Selector -->
+  </div>
+</div>
