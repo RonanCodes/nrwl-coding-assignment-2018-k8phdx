@@ -34,10 +34,6 @@ export class TicketsStoreService {
     return this.ticketsSubject.getValue();
   }
 
-  getTicket(ticketId: number): Ticket {
-    return this.ticketsSubject.getValue().find(ticket => ticket.id === ticketId);
-  }
-
   // TODO: Should this return the new ticket number or should the UI generate that? (probably the service)
   addTicket(ticketDescription: string): void {
     this.setTickets([
